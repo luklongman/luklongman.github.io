@@ -1,2 +1,2 @@
 # luklongman.github.io
- home
+ home is a home is a home
