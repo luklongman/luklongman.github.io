@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lissajous Pattern - Longman</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Lissajous Pattern</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="synthesizer.html">Synthesizer</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="osc-controls">
+            <h2>Interactive Lissajous Pattern</h2>
+            
+            <!-- Controls for left and right oscilloscopes -->
+            <div>
+                <h3>Left Oscilloscope</h3>
+                <label for="leftFreq">Frequency (Hz):</label>
+                <input type="range" id="leftFreq" min="0" max="20000" value="440">
+
+                <label for="leftVol">Volume:</label>
+                <input type="range" id="leftVol" min="0" max="1" step="0.01" value="0.5">
+
+                <label for="leftShape">Shape:</label>
+                <input type="range" id="leftShape" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <div>
+                <h3>Right Oscilloscope</h3>
+                <label for="rightFreq">Frequency (Hz):</label>
+                <input type="range" id="rightFreq" min="0" max="20000" value="440">
+
+                <label for="rightVol">Volume:</label>
+                <input type="range" id="rightVol" min="0" max="1" step="0.01" value="0.5">
+
+                <label for="rightShape">Shape:</label>
+                <input type="range" id="rightShape" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <!-- Oscilloscope display -->
+            <canvas id="leftOsc" width="300" height="300"></canvas>
+            <canvas id="rightOsc" width="300" height="300"></canvas>
+
+            <canvas id="xyOsc" width="400" height="400"></canvas>
+
+            <button id="saveBtn">Save Lissajous Image</button>
+        </div>
+    </main>
+
+    <script src="lissajousPattern.js"></script>
+</body>
+</html>
