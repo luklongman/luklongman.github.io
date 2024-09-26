@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Function Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #color-box {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #000;
+        }
+        .slider-container {
+            margin: 10px 0;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Color(x) = A + B * cos(2 * pi * (Cx + D))</h1>
+    
+    <div id="color-box"></div>
+
+    <div class="slider-container">
+        <div class="label">Red (A, B, C, D)</div>
+        A: <input type="range" id="redA" min="0" max="255" value="128"> 
+        B: <input type="range" id="redB" min="0" max="255" value="128"> 
+        C: <input type="range" id="redC" min="0" max="10" value="1" step="0.01"> 
+        D: <input type="range" id="redD" min="0" max="2" value="0" step="0.01"> 
+    </div>
+
+    <div class="slider-container">
+        <div class="label">Green (A, B, C, D)</div>
+        A: <input type="range" id="greenA" min="0" max="255" value="128"> 
+        B: <input type="range" id="greenB" min="0" max="255" value="128"> 
+        C: <input type="range" id="greenC" min="0" max="10" value="1" step="0.01"> 
+        D: <input type="range" id="greenD" min="0" max="2" value="0" step="0.01"> 
+    </div>
+
+    <div class="slider-container">
+        <div class="label">Blue (A, B, C, D)</div>
+        A: <input type="range" id="blueA" min="0" max="255" value="128"> 
+        B: <input type="range" id="blueB" min="0" max="255" value="128"> 
+        C: <input type="range" id="blueC" min="0" max="10" value="1" step="0.01"> 
+        D: <input type="range" id="blueD" min="0" max="2" value="0" step="0.01"> 
+    </div>
+
+    <script>
+        const colorBox = document.getElementById('color-box');
+
+        function updateColor() {
+            const x = 0.5; // Some constant 'x' value to compute the color
+
+            // Get values for Red channel
+            const redA = parseFloat(document.getElementById('redA').value);
+            const redB = parseFloat(document.getElementById('redB').value);
+            const redC = parseFloat(document.getElementById('redC').value);
+            const redD = parseFloat(document.getElementById('redD').value);
+
+            // Get values for Green channel
+            const greenA = parseFloat(document.getElementById('greenA').value);
+            const greenB = parseFloat(document.getElementById('greenB').value);
+            const greenC = parseFloat(document.getElementById('greenC').value);
+            const greenD = parseFloat(document.getElementById('greenD').value);
+
+            // Get values for Blue channel
+            const blueA = parseFloat(document.getElementById('blueA').value);
+            const blueB = parseFloat(document.getElementById('blueB').value);
+            const blueC = parseFloat(document.getElementById('blueC').value);
+            const blueD = parseFloat(document.getElementById('blueD').value);
+
+            // Compute color(x) for each channel using the equation: A + B * cos(2 * pi * (Cx + D))
+            const red = Math.round(redA + redB * Math.cos(2 * Math.PI * (redC * x + redD)));
+            const green = Math.round(greenA + greenB * Math.cos(2 * Math.PI * (greenC * x + greenD)));
+            const blue = Math.round(blueA + blueB * Math.cos(2 * Math.PI * (blueC * x + blueD)));
+
+            // Set color-box background color
+            colorBox.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        }
+
+        // Add event listeners to all sliders
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', updateColor);
+        });
+
+        // Initial color update
+        updateColor();
+    </script>
+</body>
+</html>

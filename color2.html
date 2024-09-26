@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Animation</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s;
+        }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Change Animation</h1>
+    <script>
+        const A = 0.5; // Baseline color value (in RGB)
+        const B = 0.5; // Amplitude (max variation)
+        const C = 2;   // Frequency
+        const D = 0;   // Phase shift
+        
+        let x = 0; // Initial value for x
+
+        function calculateColor(x) {
+            // Calculate color value based on the equation
+            const colorValue = A + B * Math.cos(2 * Math.PI * (C * x + D));
+            return Math.floor(colorValue * 255); // Scale to 0-255 for RGB
+        }
+
+        function updateBackgroundColor() {
+            // Get the color value
+            const red = calculateColor(x);
+            const green = calculateColor(x + 0.333); // Offset for green
+            const blue = calculateColor(x + 0.666); // Offset for blue
+
+            // Update the body's background color
+            document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+
+            // Increment x for animation
+            x += 0.01;
+            requestAnimationFrame(updateBackgroundColor);
+        }
+
+        // Start the animation
+        updateBackgroundColor();
+    </script>
+</body>
+</html>
