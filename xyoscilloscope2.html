@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLSL Shader with Audio</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #shader-canvas {
+            width: 100%;
+            height: 80%;
+        }
+        #controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        #frequency-slider {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="shader-canvas"></canvas>
+    <div id="controls">
+        <label for="frequency-slider">Frequency: </label>
+        <input id="frequency-slider" type="range" min="1" max="1000" step="1" value="440">
+        <span id="frequency-value">440</span> Hz
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/glslCanvas/0.2.6/glslCanvas.min.js"></script>
+    <script>
+        const canvas = document.getElementById('shader-canvas');
+        const sandbox = new GlslCanvas(canvas);
+
+        // GLSL Shader Code
+        const fragmentShader = `/* 
+    I n s t r u c t i o n s :
+
+    Since Shadertoy doesn't have support for stereo audio waveform format,
+    you need to get the chrome extension called "Shadertoy Custom Textures" (sorry non-chrome users...),
+    after that, reload this page to make sure the extension works,
+    split the single audio file that you want to play into two,
+    one for the left and another for the right audio channel,
+    drag the left channel audio to iChannel0, and right channel audio to iChannel1,
+    then, finally, rewind the playback for both audio channels to sync.
+*/
+
+/*
+    MIT License
+
+    Copyright (c) 2022 shyshokayu
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the Software), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, andor sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+*/
+
+/*
+    Feel free to make your own music/art with this shader,
+    but don't forget to provide credit to me for making this framework.
+*/
+
+/*
+    ---| Go to Common tab to play with sound |---
+*/
+
+#define VISUAL_LINE_COLOR vec3(0.4, 1.0, 0.4)
+#define VISUAL_LINE_BLUR 2.0
+#define VISUAL_LINE_BRIGHTNESS 2000.0
+
+// The shadertoy audio waveform texture format is fixed to 512, so don't touch this. (As of 2022)
+#define VISUAL_ITERATIONS 512 // Number of iterations to draw the whole line for the current frame
+
+#define map(a, b, x) (((x) - (a)) / ((b) - (a)))
+#define saturate(x) clamp(x, 0.0, 1.0)
+#define linearstep(a, b, x) saturate(map(a, b, x))
+#define cmix(a, b, x) mix(a, b, saturate(x))
+
+#define steprange(a, b, t) (step(a, t) * step(t, b))
+
+#define lengthSqr(v) dot(v, v)
+
+float sliderPointLine(in vec2 a, in vec2 b, in vec2 p) {
+    vec2 ab = b - a;
+    return dot(p - a, ab) / dot(ab, ab);
+}
+
+vec2 closestPointLine(in vec2 a, in vec2 b, in float d) {
+    return mix(a, b, saturate(d));
+}
+
+vec2 closestPointLine(in vec2 a, in vec2 b, in vec2 p) {
+    return closestPointLine(a, b, sliderPointLine(a, b, p));
+}
+
+float distToLineSqr(in vec2 a, in vec2 b, in vec2 p, in float k) {
+    vec2 d = p - closestPointLine(a, b, k);
+    return dot(d, d);
+}
+
+float distToLineSqr(in vec2 a, in vec2 b, in vec2 p) {
+    vec2 d = p - closestPointLine(a, b, p);
+    return dot(d, d);
+}
+
+float distToLine(in vec2 a, in vec2 b, in vec2 p) {
+    return sqrt(distToLineSqr(a, b, p));
+}
+
+vec2 pointTex(in float t) {
+    vec2 p = vec2(texture(iChannel0, vec2(t, 1.0)).x, texture(iChannel1, vec2(t, 1.0)).x);
+    p.x = mix(p.x, 0.5, step(p.x, 0.001));
+    p.y = mix(p.y, 0.5, step(p.y, 0.001));
+    p = (p * 4.0) - 2.0;
+    return p;
+}
+
+float imageVectorScopeLine(in vec2 a, in vec2 b, in vec2 p) {
+    float d = 0.01 + lengthSqr(a - b); // Emit less light if line is longer
+    float s = saturate(sliderPointLine(a.xy, b.xy, p));
+    float ld = distToLineSqr(a.xy, b.xy, p, s);
+    return min((0.00000004 / ((ld + (VISUAL_LINE_BLUR * 0.00001)) * d)), 0.2) * VISUAL_LINE_BRIGHTNESS;
+}
+
+float imageVectorScopeLines(in vec2 uv) {
+    float v = 0.0; // Total value
+    float lv = 0.0; // Last value
+    float cv = 0.0; // Current value
+    
+    vec2 lp = pointTex(0.0);
+    vec2 cp;
+    
+    float fv = 1.0 / float(VISUAL_ITERATIONS);
+    float k;
+    
+    for(int i = 0; i < VISUAL_ITERATIONS; ++i) {
+        k = float(i) * fv;
+        cp = pointTex(k); // Get the point
+        cv = imageVectorScopeLine(lp.xy, cp.xy, uv) * (1.0 - k);
+        v += max(cv, lv);
+        lv = cv;
+        lp = cp;
+    }
+    
+    return v * fv;
+}
+
+vec3 imageVectorScope(in vec2 uv, in float un) {
+    vec3 col = vec3(0.0);
+
+    // Lines
+    float v = imageVectorScopeLines(uv);
+    vec3 emitCol = pow(v * 0.5, 0.5) * VISUAL_LINE_COLOR;
+
+    // Grid
+    vec3 surfaceCol = vec3(1.0);
+    float gridLineSize = 0.015;
+    float gridSize = 4.0;
+    float gridV =  0.1 * (max(max(smoothstep(gridLineSize + un, gridLineSize, fract(uv.x * gridSize)), smoothstep((1.0 - gridLineSize) - un, 1.0 - gridLineSize, fract(uv.x * gridSize))), max(smoothstep(gridLineSize + un, gridLineSize, fract(uv.y * gridSize)), smoothstep((1.0 - gridLineSize) - un, 1.0 - gridLineSize, fract(uv.y * gridSize)))));
+    surfaceCol = mix(surfaceCol, vec3(2.0), gridV);
+
+    // Ambient light                                                           Inner display tube light absorption?
+    vec3 lightCol = vec3(0.045) * max(0.0, dot(uv + 0.5, vec2(0.12, 0.15) * 4.0)) * linearstep(-0.5, 3.0, length(uv));
+
+    // Color compositing
+    col = surfaceCol * lightCol;
+    col += emitCol * (1.0 - gridV);
+
+    // Cut out to make a square view
+    col *= step(abs(uv.x), 1.0) * step(abs(uv.y), 1.0);
+
+    return col;
+}
+
+float imageOscilloscopeLine(in vec2 a, in vec2 b, in vec2 p) {
+    const float ta = 0.0;
+    const float tb = 0.004;
+    const float dta = ta * ta;
+    const float dtb = tb * tb;
+    float s = saturate(sliderPointLine(a.xy, b.xy, p));
+    float ld = distToLineSqr(a.xy, b.xy, p, s);
+    return linearstep(dtb, dta, ld);
+}
+
+vec3 oscilloscopePoint(float x) {
+    return vec3(x, pointTex(1.0 - ((x * 0.5) + 0.5)));
+}
+
+vec3 imageOscilloscope(in vec2 uv, in float un) {
+    const float segments = 250.0;
+    const float thickness = 1.0 / segments;
+    const float gridThickness = 0.001;
+    const float gridInterval = 2.0;
+    float ip = round(uv.x * segments);
+    float unit = 1.0 / segments;
+
+    vec3 p0 = oscilloscopePoint((ip - 2.0) * unit),
+         p1 = oscilloscopePoint((ip - 1.0) * unit),
+         p2 = oscilloscopePoint((ip) * unit),
+         p3 = oscilloscopePoint((ip + 1.0) * unit),
+         p4 = oscilloscopePoint((ip + 2.0) * unit);
+
+    float dist1 = min(min(distToLine(p0.xy, p1.xy, uv), distToLine(p1.xy, p2.xy, uv)),
+                      min(distToLine(p2.xy, p3.xy, uv), distToLine(p3.xy, p4.xy, uv))) - thickness;
+    
+    float dist2 = min(min(distToLine(p0.xz, p1.xz, uv), distToLine(p1.xz, p2.xz, uv)),
+                      min(distToLine(p2.xz, p3.xz, uv), distToLine(p3.xz, p4.xz, uv))) - thickness;
+    
+    vec3 col = vec3(0.0);
+    
+    col += vec3(0.8, 0.2, 0.2) * smoothstep(un, -un, dist1);
+    col += vec3(0.2, 0.2, 0.8) * smoothstep(un, -un, dist2);
+
+    // Cut out to make a square view
+    col *= step(abs(uv.x), 1.0) * step(abs(uv.y), 1.0);
+    
+    return col;
+}
+
+vec3 aces(vec3 x) {
+    return clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0);
+}
+
+void mainImage(out vec4 o, in vec2 u) {
+    float un = 1.0 / min(iResolution.x, iResolution.y);
+    un *= 2.0;
+    
+    vec2 uv = (u - (0.5 * iResolution.xy)) * un;
+    
+    vec3 col = mix(
+        imageVectorScope(uv, un),
+        imageOscilloscope(uv, un),
+        texelFetch(iChannel3, ivec2(69, 2), 0).x // nice
+    );
+
+    col = pow(col, vec3(1.0 / 1.2));
+
+    col = aces(col);
+
+    // Full depth dithering, a way to make your images less bandy in low color ranges.
+    // Since we're using floats here, we can use that as an opportunity to dither that to the common color format, 32bit rgba.
+    // Essentially for free.
+    float depth = 256.0;
+    vec3 cd = col * depth;
+    vec3 di = floor(cd);
+    vec3 df = cd - di;
+    vec3 ditheredCol = (step(texture(iChannel2, u * 0.125).x + 0.00001, df) + di) / depth;
+    
+    o = vec4(ditheredCol, 1.0);
+
+    // Just uncomment this line and see how much of a difference this dithering makes in the dark areas.
+    //o = vec4(col, 1.0);
+}
+        `;
+
+        sandbox.load(fragmentShader);
+
+        // Frequency Control Slider
+        const frequencySlider = document.getElementById('frequency-slider');
+        const frequencyValue = document.getElementById('frequency-value');
+
+        frequencySlider.addEventListener('input', function() {
+            const freq = frequencySlider.value;
+            frequencyValue.textContent = freq;
+            // Send the frequency as a uniform to the shader
+            sandbox.setUniform('uFrequency', freq);
+        });
+
+        // Placeholder for user audio input, left and right channels (upload function not shown here)
+        function handleAudioInput(leftChannel, rightChannel) {
+            // Simulate iChannel0 and iChannel1 using WebGL textures for left and right audio data
+            sandbox.setUniform('iChannel0', leftChannel);
+            sandbox.setUniform('iChannel1', rightChannel);
+        }
+
+        // Dummy audio channel data (replace this with actual user-uploaded audio processing)
+        const dummyLeftChannel = new Float32Array(512);  // Simulated mono data
+        const dummyRightChannel = new Float32Array(512); // Simulated mono data
+        handleAudioInput(dummyLeftChannel, dummyRightChannel);
+    </script>
+</body>
+</html>
