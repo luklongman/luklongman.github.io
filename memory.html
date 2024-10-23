@@ -20,6 +20,8 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
         }
         .hidden {
             display: none;
@@ -31,11 +33,15 @@
         #inputArea {
             margin-top: 20px;
         }
-        #timerBar {
+        #globalTimerBar, #displayTimerBar {
             height: 10px;
             background-color: black;
             margin-bottom: 20px;
             transition: width 0.2s;
+        }
+        #displayTimerBar {
+            margin-top: 20px;
+            background-color: red;
         }
         button {
             margin: 5px;
@@ -53,11 +59,12 @@
             <button onclick="showSettings()">Settings</button>
         </div>
         <div id="gameScreen" class="hidden">
-            <div id="timerBar"></div>
+            <div id="globalTimerBar"></div>
             <div id="numberDisplay"></div>
             <div id="inputArea" class="hidden">
                 <input type="text" id="playerInput" maxlength="4" oninput="checkInput()">
             </div>
+            <div id="displayTimerBar"></div>
             <div id="gameOverScreen" class="hidden">
                 <h2>Game Over</h2>
                 <p id="finalScore"></p>
@@ -75,6 +82,9 @@
             <button onclick="saveSettings()">Save</button>
         </div>
     </div>
+
+    <audio id="correctSound" src="sfx/correct.wav"></audio>
+    <audio id="incorrectSound" src="sfx/incorrect.wav"></audio>
 
     <script>
         let S = 0.5; // display time
@@ -105,7 +115,7 @@
             
             roundStartTime = Date.now();
             displayInterval = setInterval(() => {
-                updateTimerBar((S * 1000 - (Date.now() - roundStartTime)) / (S * 1000));
+                updateTimerBars();
                 if (Date.now() - roundStartTime >= S * 1000) {
                     clearInterval(displayInterval);
                     document.getElementById('numberDisplay').textContent = '';
@@ -128,7 +138,10 @@
             const input = document.getElementById('playerInput').value;
             if (input.length === D) {
                 if (input === currentNumber) {
+                    document.getElementById('correctSound').play();
                     score++;
+                } else {
+                    document.getElementById('incorrectSound').play();
                 }
                 gameLoop();
             }
@@ -137,16 +150,12 @@
         function updateTimerBars() {
             const elapsedTime = Date.now() - startTime;
             const roundElapsedTime = Date.now() - roundStartTime;
-        
+            
             const globalProgress = (elapsedTime / (T * 1000)) * 100;
-            const displayProgress = Math.max(0, (1 - (roundElapsedTime / (S * 1000))) * 100);
-        
+            const displayProgress = (1 - (roundElapsedTime / (S * 1000))) * 100;
+            
             document.getElementById('globalTimerBar').style.width = globalProgress + '%';
             document.getElementById('displayTimerBar').style.width = displayProgress + '%';
-        
-            if (roundElapsedTime >= S * 1000) {
-                document.getElementById('displayTimerBar').style.width = '0%';
-            }
         }
 
         function endGame() {
