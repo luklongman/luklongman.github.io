@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Memory Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        #gameContainer {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+        #numberDisplay {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #inputArea {
+            margin-top: 20px;
+        }
+        #timerBar {
+            height: 10px;
+            background-color: black;
+            margin-bottom: 20px;
+            transition: width 0.2s;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="titleScreen">
+            <h1>Number Memory Game</h1>
+            <button onclick="startGame()">Start</button>
+            <button onclick="showSettings()">Settings</button>
+        </div>
+        <div id="gameScreen" class="hidden">
+            <div id="timerBar"></div>
+            <div id="numberDisplay"></div>
+            <div id="inputArea" class="hidden">
+                <input type="text" id="playerInput" maxlength="4" oninput="checkInput()">
+            </div>
+            <div id="gameOverScreen" class="hidden">
+                <h2>Game Over</h2>
+                <p id="finalScore"></p>
+                <button onclick="restartGame()">Restart</button>
+            </div>
+        </div>
+        <div id="settingsScreen" class="hidden">
+            <h2>Settings</h2>
+            <label for="displayTime">Display Time (S):</label>
+            <input type="number" id="displayTime" min="0.1" step="0.1" value="0.5"><br>
+            <label for="gameTime">Game Time (T):</label>
+            <input type="number" id="gameTime" min="10" step="5" value="30"><br>
+            <label for="numberLength">Number Length (D):</label>
+            <input type="number" id="numberLength" min="1" max="10" value="4"><br>
+            <button onclick="saveSettings()">Save</button>
+        </div>
+    </div>
+
+    <script>
+        let S = 0.5; // display time
+        let T = 30; // total game time
+        let D = 4; // number length
+        let score = 0;
+        let currentNumber = '';
+        let startTime, roundStartTime;
+        let gameInterval, displayInterval;
+
+        function startGame() {
+            document.getElementById('titleScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            score = 0;
+            startTime = Date.now();
+            gameLoop();
+        }
+
+        function gameLoop() {
+            if (Date.now() - startTime >= T * 1000) {
+                endGame();
+                return;
+            }
+            
+            currentNumber = generateRandomNumber(D);
+            document.getElementById('numberDisplay').textContent = currentNumber;
+            document.getElementById('inputArea').classList.add('hidden');
+            
+            roundStartTime = Date.now();
+            displayInterval = setInterval(() => {
+                updateTimerBar((S * 1000 - (Date.now() - roundStartTime)) / (S * 1000));
+                if (Date.now() - roundStartTime >= S * 1000) {
+                    clearInterval(displayInterval);
+                    document.getElementById('numberDisplay').textContent = '';
+                    document.getElementById('inputArea').classList.remove('hidden');
+                    document.getElementById('playerInput').value = '';
+                    document.getElementById('playerInput').focus();
+                }
+            }, 100);
+        }
+
+        function generateRandomNumber(length) {
+            let num = '';
+            for (let i = 0; i < length; i++) {
+                num += Math.floor(Math.random() * 10);
+            }
+            return num;
+        }
+
+        function checkInput() {
+            const input = document.getElementById('playerInput').value;
+            if (input.length === D) {
+                if (input === currentNumber) {
+                    score++;
+                }
+                gameLoop();
+            }
+        }
+
+        function updateTimerBar(progress) {
+            document.getElementById('timerBar').style.width = (progress * 100) + '%';
+        }
+
+        function endGame() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('gameOverScreen').classList.remove('hidden');
+            document.getElementById('finalScore').textContent = 'Your score: ' + score;
+        }
+
+        function restartGame() {
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            document.getElementById('titleScreen').classList.remove('hidden');
+        }
+
+        function showSettings() {
+            document.getElementById('titleScreen').classList.add('hidden');
+            document.getElementById('settingsScreen').classList.remove('hidden');
+        }
+
+        function saveSettings() {
+            S = parseFloat(document.getElementById('displayTime').value);
+            T = parseInt(document.getElementById('gameTime').value);
+            D = parseInt(document.getElementById('numberLength').value);
+            document.getElementById('settingsScreen').classList.add('hidden');
+            document.getElementById('titleScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
