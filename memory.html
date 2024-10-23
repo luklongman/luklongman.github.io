@@ -94,12 +94,14 @@
         let currentNumber = '';
         let startTime, roundStartTime;
         let gameInterval, displayInterval;
+        let gameOver = false;
 
         function startGame() {
             document.getElementById('titleScreen').classList.add('hidden');
             document.getElementById('gameScreen').classList.remove('hidden');
             score = 0;
             startTime = Date.now();
+            gameOver = false;
             gameLoop();
         }
 
@@ -108,22 +110,27 @@
                 endGame();
                 return;
             }
-            
-            currentNumber = generateRandomNumber(D);
-            document.getElementById('numberDisplay').textContent = currentNumber;
-            document.getElementById('inputArea').classList.add('hidden');
-            
-            roundStartTime = Date.now();
-            displayInterval = setInterval(() => {
-                updateTimerBars();
-                if (Date.now() - roundStartTime >= S * 1000) {
-                    clearInterval(displayInterval);
-                    document.getElementById('numberDisplay').textContent = '';
-                    document.getElementById('inputArea').classList.remove('hidden');
-                    document.getElementById('playerInput').value = '';
-                    document.getElementById('playerInput').focus();
-                }
-            }, 100);
+        
+            if (!currentNumber) {
+                currentNumber = generateRandomNumber(D);
+                document.getElementById('numberDisplay').textContent = currentNumber;
+                document.getElementById('inputArea').classList.add('hidden');
+                roundStartTime = Date.now();
+            }
+        
+            updateTimerBars();
+        
+            if (Date.now() - roundStartTime >= S * 1000 && !document.getElementById('inputArea').classList.contains('visible')) {
+                document.getElementById('numberDisplay').textContent = '';
+                document.getElementById('inputArea').classList.remove('hidden');
+                document.getElementById('inputArea').classList.add('visible');
+                document.getElementById('playerInput').value = '';
+                document.getElementById('playerInput').focus();
+            }
+        
+            if (!gameOver) {
+                requestAnimationFrame(gameLoop);
+            }
         }
 
         function generateRandomNumber(length) {
@@ -143,7 +150,8 @@
                 } else {
                     document.getElementById('incorrectSound').play();
                 }
-                gameLoop();
+                currentNumber = '';
+                document.getElementById('inputArea').classList.remove('visible');
             }
         }
 
@@ -159,6 +167,7 @@
         }
 
         function endGame() {
+            gameOver = true;
             document.getElementById('gameScreen').classList.add('hidden');
             document.getElementById('gameOverScreen').classList.remove('hidden');
             document.getElementById('finalScore').textContent = 'Your score: ' + score;
