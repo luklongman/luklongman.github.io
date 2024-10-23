@@ -134,8 +134,19 @@
             }
         }
 
-        function updateTimerBar(progress) {
-            document.getElementById('timerBar').style.width = (progress * 100) + '%';
+        function updateTimerBars() {
+            const elapsedTime = Date.now() - startTime;
+            const roundElapsedTime = Date.now() - roundStartTime;
+        
+            const globalProgress = (elapsedTime / (T * 1000)) * 100;
+            const displayProgress = Math.max(0, (1 - (roundElapsedTime / (S * 1000))) * 100);
+        
+            document.getElementById('globalTimerBar').style.width = globalProgress + '%';
+            document.getElementById('displayTimerBar').style.width = displayProgress + '%';
+        
+            if (roundElapsedTime >= S * 1000) {
+                document.getElementById('displayTimerBar').style.width = '0%';
+            }
         }
 
         function endGame() {
