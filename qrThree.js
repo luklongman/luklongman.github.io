@@ -134,7 +134,7 @@ function animateParticles() {
       positions[i * 3 + 1] ** 2 +
       positions[i * 3 + 2] ** 2
     );
-    if (distance < 10) {
+    if (distance < 50) {
       const textureIndex = Math.floor(Math.random() * qrSamples.length);
       particleMaterial.map = qrTextures[textureIndex];
       particleMaterial.needsUpdate = true;
