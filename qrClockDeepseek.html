@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Clock Cube</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: hwb(215 9% 62%); /* Light grey background */
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry();
+    const materials = [];
+
+    const qrCanvas = document.createElement('canvas');
+    const moduleCount = 29;
+    const moduleWidth = 8;
+    const size = moduleCount * moduleWidth;
+
+    qrCanvas.width = size;
+    qrCanvas.height = size;
+
+    function getFormattedDateTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      return `${hours}:${minutes}:${seconds}, ${day}/${month}/${year}`;
+    }
+
+    function updateQRCode() {
+      const datetime = getFormattedDateTime();
+      const text = `${datetime}`;
+
+      document.title = datetime;
+
+      QRCode.toCanvas(
+        qrCanvas,
+        text,
+        {
+          width: size,
+          margin: 0,
+          version: 3,
+          color: {
+            dark: '#002040',
+            light: '#FDF5E6',
+          },
+        },
+        (error) => {
+          if (error) console.error(error);
+
+          const texture = new THREE.CanvasTexture(qrCanvas);
+          for (let i = 0; i < 6; i++) {
+            materials[i] = new THREE.MeshBasicMaterial({ map: texture });
+          }
+        }
+      );
+    }
+
+    const cube = new THREE.Mesh(geometry, materials);
+    scene.add(cube);
+
+    camera.position.z = 3; // Distance from the cube
+
+    const animate = function () {
+      requestAnimationFrame(animate);
+
+      cube.rotation.x += 0.003; // Rotation speed
+      cube.rotation.y += 0.002; // Rotation speed
+
+      renderer.render(scene, camera);
+    };
+
+    // Update QR code every second
+    setInterval(updateQRCode, 1000);
+    updateQRCode(); // Initial call
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Add lighting
+    const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
+  </script>
+</body>
+</html>

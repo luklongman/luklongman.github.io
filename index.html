@@ -10,9 +10,22 @@
       overflow: hidden;
       background-color: hwb(215 9% 62%); /* Light grey background */
     }
+    .fade-text {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      font-family: Georgia, serif;
+      color: #FDF5E6;
+      opacity: 0;
+      transition: opacity 2s;
+      bottom: 10%;
+    }
   </style>
 </head>
 <body>
+  <div id="text1" class="fade-text">What is it? Time.</div>
+  <div id="text2" class="fade-text">What time is it?</div>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="spectrogram.js"></script>
@@ -71,7 +84,7 @@
             materials[i] = new THREE.MeshStandardMaterial({
               map: texture,
               envMap: scene.background,
-              metalness: 0.25,
+              metalness: 0,
               roughness: 0.5,
               reflectivity: 1,
               clearcoat: 0.5,
@@ -146,26 +159,6 @@
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
-    // Create an audio context
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 4096;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    // Create a canvas for the spectrogram
-    const spectrogramCanvas = document.createElement('canvas');
-    spectrogramCanvas.width = window.innerWidth;
-    spectrogramCanvas.height = window.innerHeight;
-    const spectrogramContext = spectrogramCanvas.getContext('2d');
-    document.body.appendChild(spectrogramCanvas);
-
-    // Get user media
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      const source = audioContext.createMediaStreamSource(stream);
-      source.connect(analyser);
-    });
-
     // Create a particle system for the background
     const particleCount = 5000;
     const particles = new THREE.BufferGeometry();
@@ -202,6 +195,28 @@
     }
 
     animateParticles();
+
+    // Text animation
+    function animateText() {
+      const text1 = document.getElementById('text1');
+      const text2 = document.getElementById('text2');
+
+      function fadeIn(element) {
+        element.style.opacity = 1;
+      }
+
+      function fadeOut(element) {
+        element.style.opacity = 0;
+      }
+
+      setTimeout(() => fadeIn(text1), 5000);
+      setTimeout(() => fadeOut(text1), 12000);
+      setTimeout(() => fadeIn(text2), 14000);
+      setTimeout(() => fadeOut(text2), 21000);
+    }
+
+    animateText();
+    setInterval(animateText, 60000); // Repeat the animation every 60 seconds
   </script>
 </body>
 </html>

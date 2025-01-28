@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Clock Handles</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #282c34;
+        }
+        canvas {
+            background-color: #ffffff;
+            width: 264px; /* Adjusted size to make each QR module an integer size */
+            height: 264px; /* Adjusted size to make each QR module an integer size */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="qrCanvas"></canvas>
+    <script>
+        // Define the QR code standard
+        const qrStandard = {
+            size: 264, // Adjusted size to make each QR module an integer size
+            modules: 21, // Number of modules in the QR code
+            borderSize: 2 // Quiet zone size in modules
+        };
+
+        // Function to generate the QR code
+        function generateQRCode(text) {
+            const canvas = document.getElementById("qrCanvas");
+            const qr = new QRious({
+                element: canvas,
+                value: text,
+                size: qrStandard.size, // Use defined size
+                foreground: "#000000",
+                background: "#ffffff"
+            });
+        }
+
+        // Function to draw clock handles on the QR code
+        function drawClockHandles() {
+            const canvas = document.getElementById("qrCanvas");
+            const ctx = canvas.getContext("2d");
+
+            const gridSize = (qrStandard.size - 2 * qrStandard.borderSize) / qrStandard.modules; // Correct grid size calculation
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            const hour = new Date().getHours() % 12;
+            const minute = new Date().getMinutes();
+            const second = new Date().getSeconds();
+
+            // Calculate angles for each hand
+            const hourAngle = ((hour + minute / 60) / 12) * 2 * Math.PI - Math.PI / 2;
+            const minuteAngle = (minute / 60) * 2 * Math.PI - Math.PI / 2;X
+            const secondAngle = (second / 60) * 2 * Math.PI - Math.PI / 2;
+
+            // Draw pixelated clock handles
+            function drawPixelatedLine(angle, length, color) {
+                for (let step = 0; step < length; step++) {
+                    const x = Math.round(centerX + step * gridSize * Math.cos(angle));
+                    const y = Math.round(centerY + step * gridSize * Math.sin(angle));
+
+                    const gridX = Math.floor((x - qrStandard.borderSize) / gridSize) * gridSize + qrStandard.borderSize;
+                    const gridY = Math.floor((y - qrStandard.borderSize) / gridSize) * gridSize + qrStandard.borderSize;
+
+                    // Draw a square at the grid location
+                    ctx.fillStyle = color;
+                    ctx.fillRect(gridX, gridY, gridSize, gridSize);
+                }
+            }
+
+            // Draw the clock handles
+            drawPixelatedLine(hourAngle, 5, "#ff0000"); // Hour hand
+            drawPixelatedLine(minuteAngle, 7, "#ff0000"); // Minute hand
+            drawPixelatedLine(secondAngle, 9, "#ff0000"); // Second hand
+        }
+
+        // Function to update QR code and draw clock handles
+        function updateQRCode() {
+            generateQRCode(""); // Generate an empty QR code
+            // Wait for QR code to render, then draw clock handles
+            setTimeout(() => {
+                drawClockHandles();
+            }, 50);
+        }
+
+        // Update QR code and handles every second
+        setInterval(updateQRCode, 1000);
+
+        // Add QRious library dynamically
+        (function() {
+            const script = document.createElement("script");
+            script.src = "https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js";
+            script.onload = () => {
+                updateQRCode();
+            };
+            document.body.appendChild(script);
+        })();
+    </script>
+</body>
+</html>
