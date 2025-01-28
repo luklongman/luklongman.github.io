@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waterfall Spectrogram</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script>
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = audioContext.createAnalyser();
+    analyser.fftSize = 2048;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    const canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+    const canvasCtx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        const source = audioContext.createMediaStreamSource(stream);
+        source.connect(analyser);
+        draw();
+      })
+      .catch(err => {
+        console.error('Error accessing microphone: ', err);
+      });
+
+    function draw() {
+      requestAnimationFrame(draw);
+
+      analyser.getByteFrequencyData(dataArray);
+
+      const width = canvas.width;
+      const height = canvas.height;
+      const sliceWidth = width / (audioContext.sampleRate / analyser.fftSize) * 3; // 3 seconds
+      const barHeight = height / bufferLength;
+
+      canvasCtx.drawImage(canvas, -sliceWidth, 0); // Shift image left
+      canvasCtx.clearRect(width - sliceWidth, 0, sliceWidth, height); // Clear rightmost slice
+
+      for (let i = 0; i < bufferLength; i++) {
+        const value = dataArray[i];
+        const percent = value / 256;
+        const shade = percent * 100;
+
+        // Use different shades of red
+        canvasCtx.fillStyle = `hsl(0, 100%, ${shade}%)`;
+
+        // Linear time scaling
+        const x = width - (i * sliceWidth);
+        canvasCtx.fillRect(x, height - i * barHeight, sliceWidth, barHeight);
+      }
+    }
+  </script>
+</body>
+</html>
