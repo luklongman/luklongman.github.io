@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: hwb(0 0% 100%);
+}
+.fade-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  font-family: Georgia, serif;
+  color: #FDF5E6;
+  opacity: 0;
+  transition: opacity 2s;
+  bottom: 10%;
+}
