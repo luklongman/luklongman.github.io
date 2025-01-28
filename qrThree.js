@@ -20,7 +20,7 @@ var Posz_start = 9000;
 var Posz_end = 4.5;
 var Posy_start = 1200;
 var Posy_end = -0.333;
-const approachDuration = 3000;
+const approachDuration = 3200;
 camera.position.z = Posz_start;
 camera.position.y = Posy_start;
 

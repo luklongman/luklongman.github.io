@@ -129,16 +129,16 @@ function blendTextures() {
   }
 }
 
-// Toggle blend factor increment every minute
-setInterval(() => {
-  if (blendFactorIncrement === 1 / 12) {
-    blendFactorIncrement = 1;
-  } else if (Math.random() < 0.01) {
-    blendFactorIncrement = 1 / 12;
-    setTimeout(() => {
+  // Toggle blend factor increment every minute
+  setInterval(() => {
+    if (blendFactorIncrement === 1 / 12) {
       blendFactorIncrement = 1;
-    }, 12000);
-  }
+    } else if (Math.random() < 0.01) {
+      blendFactorIncrement = 1 / 12;
+      setTimeout(() => {
+        blendFactorIncrement = 1;
+      }, 12000);
+    }
 }, 1000);
 
 // Update QR code every second
