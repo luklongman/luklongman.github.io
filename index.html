@@ -23,41 +23,65 @@
       bottom: 20px;
       right: 20px;
       background-color: #FDF5E6;
-      border: none;
       border-radius: 50%;
       width: 50px;
       height: 50px;
-      font-size: 1.5rem;
-      color: #002040;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, opacity 0.5s;
+    }
+    .play-button:hover {
+      transform: translateY(-5px);
+    }
+    .fade-out {
+      opacity: 0;
+      transform: scale(0.5);
     }
   </style>
+  <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="m-0 overflow-hidden bg-white">
   <div id="text1" class="prompt">Time. What is it?</div>
   <div id="text2" class="prompt"></div>
-  <div id="text3" class="prompt">Come on.</div>
+  <div id="text3" class="prompt">No.</div>
   <div id="text4" class="prompt">What time is it?</div>
-  <button id="playButton" class="play-button">▶️</button>
+  <button id="playButton" class="play-button">
+    <i data-feather="play"></i>
+  </button>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="qrCoder.js"></script>
   <script src="qrThree.js"></script>
   <script src="textAnimation.js"></script>
   <script>
-    const audio = new Audio('music/qrClock.wav');
-    const playButton = document.getElementById('playButton');
+    feather.replace();
 
-    playButton.addEventListener('click', () => {
-      audio.play();
-      playButton.style.display = 'none';
+    const audio = new Audio('music/qrClock.wav');
+    let audioPlayed = false;
+
+    document.getElementById('playButton').addEventListener('click', () => {
+      const playTime = Math.max(1000, 5000 - Date.now() % 5000);
+      setTimeout(() => {
+        audio.play().catch(() => {
+          console.log('User interaction required to play audio');
+        });
+        audioPlayed = true;
+      }, playTime);
+      const playButton = document.getElementById('playButton');
+      playButton.classList.add('fade-out');
+      setTimeout(() => {
+        playButton.style.display = 'none';
+      }, 500);
     });
 
     setTimeout(() => {
-      audio.play().catch(() => {
-        playButton.style.display = 'block';
-      });
+      if (!audioPlayed) {
+        audio.play().catch(() => {
+          console.log('User interaction required to play audio');
+        });
+      }
     }, 5000);
   </script>
 </body>
