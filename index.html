@@ -3,220 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spectrogram Visualization</title>
+  <title>Time</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: hwb(215 9% 62%); /* Light grey background */
-    }
-    .fade-text {
+    @import url('https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap');
+    .prompt {
       position: absolute;
       width: 100%;
       text-align: center;
-      font-size: 2em;
-      font-family: Georgia, serif;
+      font-size: 1.5rem;
+      font-family: 'Georgia', serif;
       color: #FDF5E6;
       opacity: 0;
-      transition: opacity 2s;
-      bottom: 10%;
+      transition: opacity 0.5s;
+      bottom: 33%;
     }
   </style>
 </head>
-<body>
-  <div id="text1" class="fade-text">What is it? Time.</div>
-  <div id="text2" class="fade-text">What time is it?</div>
+<body class="m-0 overflow-hidden bg-white">
+  <div id="text1" class="prompt">Time. What is it?</div>
+  <div id="text2" class="prompt"></div>
+  <div id="text3" class="prompt">Come on.</div>
+  <div id="text4" class="prompt">What time is it?</div>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="spectrogram.js"></script>
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    const geometry = new THREE.BoxGeometry();
-    const materials = [];
-
-    const qrCanvas = document.createElement('canvas');
-    const moduleCount = 29;
-    const moduleWidth = 8;
-    const size = moduleCount * moduleWidth;
-
-    qrCanvas.width = size;
-    qrCanvas.height = size;
-
-    function getFormattedDateTime() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
-      return `${hours}:${minutes}:${seconds}, ${day}/${month}/${year}`;
-    }
-
-    function updateQRCode() {
-      const datetime = getFormattedDateTime();
-      const text = `${datetime}`;
-
-      document.title = datetime;
-
-      QRCode.toCanvas(
-        qrCanvas,
-        text,
-        {
-          width: size,
-          margin: 0,
-          version: 3,
-          color: {
-            dark: '#002040',
-            light: '#FDF5E6',
-          },
-        },
-        (error) => {
-          if (error) console.error(error);
-
-          const texture = new THREE.CanvasTexture(qrCanvas);
-          for (let i = 0; i < 6; i++) {
-            materials[i] = new THREE.MeshStandardMaterial({
-              map: texture,
-              envMap: scene.background,
-              metalness: 0,
-              roughness: 0.5,
-              reflectivity: 1,
-              clearcoat: 0.5,
-              clearcoatRoughness: 0,
-              envMapIntensity: 1,
-            });
-          }
-          cube.material = materials;
-        }
-      );
-    }
-
-    const cube = new THREE.Mesh(geometry, materials);
-    scene.add(cube);
-
-    function easeOutQuint(t) {
-      return 1 + (--t) * t * t * t * t;
-    }
-
-    var Posz_start = 50;
-    var Posz_end = 4.5;
-    var Posy_start = 40;
-    var Posy_end = -0.333;
-    const approachDuration = 3000;
-    camera.position.z = Posz_start;
-    camera.position.y = Posy_start;
-
-    // Start with a random angle
-    cube.rotation.x = Math.random() * Math.PI * 2;
-    cube.rotation.y = Math.random() * Math.PI * 2;
-
-    const startTime = Date.now();
-
-    const animate = function () {
-      requestAnimationFrame(animate);
-
-      const elapsedTime = Date.now() - startTime;
-      if (elapsedTime < approachDuration) {
-        const t = elapsedTime / approachDuration;
-        const easedT = easeOutQuint(t);
-        camera.position.z = Posz_start - ((Posz_start - Posz_end) * easedT); // Approach to z = 4.5
-        camera.position.y = Posy_start + ((Posy_end - Posy_start) * easedT); // Approach to y = 0
-        cube.rotation.x += 0.06 * (1 - easedT) + 0.003 * easedT; // Ease into constant rotation speed
-        cube.rotation.y += 0.04 * (1 - easedT) + 0.002 * easedT; // Ease into constant rotation speed
-      } else {
-        camera.position.z = Posz_end; // Final position
-        camera.position.y = Posy_end; // Final position
-        cube.rotation.x += 0.003; // Constant rotation speed
-        cube.rotation.y += 0.002; // Constant rotation speed
-      }
-
-      renderer.render(scene, camera);
-    };
-
-    // Update QR code every second
-    setInterval(updateQRCode, 1000);
-    updateQRCode(); // Initial call
-
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Add lighting
-    const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-    pointLight.position.set(10, 10, 10);
-    scene.add(pointLight);
-
-    // Create a particle system for the background
-    const particleCount = 5000;
-    const particles = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount; i++) {
-      const x = Math.random() * 2000 - 1000;
-      const y = Math.random() * 2000 - 1000;
-      const z = Math.random() * 2000 - 1000;
-
-      particlePositions[i * 3] = x;
-      particlePositions[i * 3 + 1] = y;
-      particlePositions[i * 3 + 2] = z;
-    }
-
-    particles.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-
-    const particleMaterial = new THREE.PointsMaterial({
-      color: 0x888888,
-      size: 1,
-      transparent: true,
-      opacity: 0.7,
-    });
-
-    const particleSystem = new THREE.Points(particles, particleMaterial);
-    scene.add(particleSystem);
-
-    function animateParticles() {
-      requestAnimationFrame(animateParticles);
-
-      particleSystem.rotation.y += 0.001;
-
-      renderer.render(scene, camera);
-    }
-
-    animateParticles();
-
-    // Text animation
-    function animateText() {
-      const text1 = document.getElementById('text1');
-      const text2 = document.getElementById('text2');
-
-      function fadeIn(element) {
-        element.style.opacity = 1;
-      }
-
-      function fadeOut(element) {
-        element.style.opacity = 0;
-      }
-
-      setTimeout(() => fadeIn(text1), 5000);
-      setTimeout(() => fadeOut(text1), 12000);
-      setTimeout(() => fadeIn(text2), 14000);
-      setTimeout(() => fadeOut(text2), 21000);
-    }
-
-    animateText();
-    setInterval(animateText, 60000); // Repeat the animation every 60 seconds
-  </script>
+  <script src="qrCoder.js"></script>
+  <script src="qrThree.js"></script>
+  <script src="textAnimation.js"></script>
 </body>
 </html>

@@ -130,16 +130,22 @@ function blendTextures() {
 }
 
 // Toggle blend factor increment every minute
-setInterval(() => {
-  if (blendFactorIncrement === 1 / 12) {
-    blendFactorIncrement = 1;
-  } else if (Math.random() < 0.01) {
-    blendFactorIncrement = 1 / 12;
-    setTimeout(() => {
+blendFactorIncrement = 1;
+
+setTimeout(() => {
+  setInterval(() => {
+    if (blendFactorIncrement === 1 / 6) {
       blendFactorIncrement = 1;
-    }, 12000);
-  }
-}, 1000);
+    } else if (Math.random() < 0.01) {
+      blendFactorIncrement = 1 / 6;
+      qrColors.dark = '#FF0000'; // Change dark color to alert red
+      setTimeout(() => {
+        blendFactorIncrement = 1;
+        qrColors.dark = '#002040'; // Revert dark color back to original
+      }, 12000);
+    }
+  }, 1000);
+}, 30000);
 
 // Update QR code every second
 setInterval(updateQRCode, 1000);
