@@ -7,7 +7,19 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry();
-const materials = [];
+const materials = Array.from({ length: 6 }, () => new THREE.MeshStandardMaterial({
+  map: currentTexture,
+  metalness: 0,
+  roughness: 0.2,
+  envMapIntensity: 1,
+  color: 0xffffff, // Color of the material
+  emissive: 0x000000, // Emissive color of the material
+  emissiveIntensity: 1, // Intensity of the emissive color
+  opacity: 1, // Opacity of the material
+  transparent: false, // Whether the material is transparent
+  wireframe: false, // Whether to render the material as a wireframe
+  flatShading: false // Whether to use flat shading
+}));
 
 const cube = new THREE.Mesh(geometry, materials);
 scene.add(cube);
@@ -66,10 +78,10 @@ window.addEventListener('resize', () => {
 });
 
 // Add lighting
-const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+const ambientLight = new THREE.AmbientLight(0x404040, 0.35); // Dim ambient light
 scene.add(ambientLight);
 
-const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+const pointLight = new THREE.PointLight(0xffffff, 1.5, 85); // Brighter point light
 pointLight.position.set(10, 10, 10);
 scene.add(pointLight);
 

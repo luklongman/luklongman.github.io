@@ -36,6 +36,7 @@ function getFormattedDateTime() {
 }
 
 let toggleTitle = true;
+
 let currentTexture = new THREE.CanvasTexture(qrCanvas1);
 let nextTexture = new THREE.CanvasTexture(qrCanvas2);
 let blendFactor = 0;
@@ -69,64 +70,21 @@ function updateQRCode() {
 
       blendFactor = 0;
       blending = true;
-      blendTextures();
+
+      // Swap textures
+      const temp = currentTexture;
+      currentTexture = nextTexture;
+      nextTexture = temp;
+
+      for (let i = 0; i < 6; i++) {
+        cube.material[i].map = currentTexture;
+        cube.material[i].needsUpdate = true;
+      }
     }
   );
 
   document.title = toggleTitle ? "Time" : "Time.";
   toggleTitle = !toggleTitle;
-}
-
-function blendTextures() {
-  if (blendFactor < 1) {
-    blendFactor += blendFactorIncrement; // Use the toggled blend factor increment
-    for (let i = 0; i < 6; i++) {
-      materials[i] = new THREE.MeshStandardMaterial({
-        envMap: scene.background,
-        metalness: 0,
-        roughness: 0.5,
-        reflectivity: 1,
-        clearcoat: 0.5,
-        clearcoatRoughness: 0,
-        envMapIntensity: 1,
-      });
-      materials[i].onBeforeCompile = (shader) => {
-        shader.uniforms.currentTexture = { value: currentTexture };
-        shader.uniforms.nextTexture = { value: nextTexture };
-        shader.uniforms.blendFactor = { value: blendFactor };
-        shader.vertexShader = `
-          varying vec2 vUv;
-          ${shader.vertexShader}
-        `.replace(
-          `#include <uv_vertex>`,
-          `#include <uv_vertex>
-           vUv = uv;`
-        );
-        shader.fragmentShader = `
-          uniform sampler2D currentTexture;
-          uniform sampler2D nextTexture;
-          uniform float blendFactor;
-          varying vec2 vUv;
-          ${shader.fragmentShader}
-        `.replace(
-          `gl_FragColor = vec4( outgoingLight, diffuseColor.a );`,
-          `
-          vec4 currentColor = texture2D(currentTexture, vUv);
-          vec4 nextColor = texture2D(nextTexture, vUv);
-          gl_FragColor = mix(currentColor, nextColor, blendFactor);
-          `
-        );
-      };
-    }
-    cube.material = materials;
-    requestAnimationFrame(blendTextures);
-  } else {
-    blending = false;
-    // Swap textures
-    const temp = currentTexture;
-    currentTexture = nextTexture;
-    nextTexture = temp;
-  }
 }
 
   // Toggle blend factor increment every minute
