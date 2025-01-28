@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const texts = document.querySelectorAll('.prompt');
-  let delay = 3000; // Start animation at 3rd second
+  let delay = 5000;
 
   texts.forEach((text, index) => {
     setTimeout(() => {
