@@ -3,35 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Clock</title>
+  <title>QR Clock Cube</title>
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      overflow: hidden;
       background-color: hwb(215 9% 62%); /* Light grey background */
-    }
-    #qr-container {
-      position: relative;
-    }
-    #qr-code {
-      image-rendering: pixelated;
     }
   </style>
 </head>
 <body>
-  <div id="qr-container">
-    <canvas id="qr-code"></canvas>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    const qrCanvas = document.getElementById('qr-code');
-    const moduleCount = 29; // Version 3 QR code has 29x29 modules
-    const moduleWidth = 8; // Each module is 8x8 pixels
-    const size = moduleCount * moduleWidth; // Canvas size (232x232 pixels)
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry();
+    const materials = [];
+
+    const qrCanvas = document.createElement('canvas');
+    const moduleCount = 29;
+    const moduleWidth = 8;
+    const size = moduleCount * moduleWidth;
 
     qrCanvas.width = size;
     qrCanvas.height = size;
@@ -47,115 +44,68 @@
       return `${hours}:${minutes}:${seconds}, ${day}/${month}/${year}`;
     }
 
-    function getHandlesEncoder() {
-      const now = new Date();
-      const hours = now.getHours() % 12;
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-
-      // Encode handles as angles
-      const hourAngle = (hours * 30) + (minutes * 0.5); // 30 degrees per hour, 0.5 degrees per minute
-      const minuteAngle = minutes * 6; // 6 degrees per minute
-      const secondAngle = seconds * 6; // 6 degrees per second
-
-      return `H${hourAngle.toFixed(1)}M${minuteAngle.toFixed(1)}S${secondAngle.toFixed(1)}`;
-    }
-
-    function drawPixelatedLine(ctx, startX, startY, endX, endY, qrData) {
-      const dx = endX - startX;
-      const dy = endY - startY;
-      const steps = Math.max(Math.abs(dx), Math.abs(dy));
-
-      for (let i = 0; i <= steps; i++) {
-        const x = Math.round(startX + (dx * i) / steps);
-        const y = Math.round(startY + (dy * i) / steps);
-
-        // Check if the QR module at (x, y) is black (1)
-        if (qrData[y] && qrData[y][x] === 1) {
-          ctx.fillRect(x * moduleWidth, y * moduleWidth, moduleWidth, moduleWidth); // Draw a module-sized pixel
-        }
-      }
-    }
-
-    function drawClockHandles(ctx, qrData) {
-      const now = new Date();
-      const hours = now.getHours() % 12;
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-
-      const centerX = Math.floor(moduleCount / 2);
-      const centerY = Math.floor(moduleCount / 2);
-
-      // Hour handle
-      const hourAngle = (hours * 30) + (minutes * 0.5);
-      const hourLength = moduleCount * 0.2;
-      const hourX = centerX + Math.sin((hourAngle * Math.PI) / 180) * hourLength;
-      const hourY = centerY - Math.cos((hourAngle * Math.PI) / 180) * hourLength;
-
-      // Minute handle
-      const minuteAngle = minutes * 6;
-      const minuteLength = moduleCount * 0.3;
-      const minuteX = centerX + Math.sin((minuteAngle * Math.PI) / 180) * minuteLength;
-      const minuteY = centerY - Math.cos((minuteAngle * Math.PI) / 180) * minuteLength;
-
-      // Second handle
-      const secondAngle = seconds * 6;
-      const secondLength = moduleCount * 0.4;
-      const secondX = centerX + Math.sin((secondAngle * Math.PI) / 180) * secondLength;
-      const secondY = centerY - Math.cos((secondAngle * Math.PI) / 180) * secondLength;
-
-      // Draw pixelated lines
-      ctx.fillStyle = '#EF4715';
-      drawPixelatedLine(ctx, centerX, centerY, hourX, hourY, qrData); // Hour handle
-      drawPixelatedLine(ctx, centerX, centerY, minuteX, minuteY, qrData); // Minute handle
-      drawPixelatedLine(ctx, centerX, centerY, secondX, secondY, qrData); // Second handle
-    }
-
     function updateQRCode() {
       const datetime = getFormattedDateTime();
-      const encoder = getHandlesEncoder();
-      const text = `${datetime}\n${encoder}`; // Combine datetime and encoder
+      const text = `${datetime}`;
 
       document.title = datetime;
 
       QRCode.toCanvas(
         qrCanvas,
-        text, // Use the combined text
+        text,
         {
           width: size,
           margin: 0,
           version: 3,
           color: {
-            dark: '#002040', // Deep brown for dark modules
-            light: '#FDF5E6', // Milky white for light modules
+            dark: '#002040',
+            light: '#FDF5E6',
           },
         },
         (error) => {
           if (error) console.error(error);
 
-          const ctx = qrCanvas.getContext('2d');
-
-          // Extract QR module data (1 for black, 0 for white)
-          const imageData = ctx.getImageData(0, 0, size, size).data;
-          const qrData = [];
-          for (let y = 0; y < moduleCount; y++) {
-            qrData[y] = [];
-            for (let x = 0; x < moduleCount; x++) {
-              const pixelIndex = (y * moduleWidth * size + x * moduleWidth) * 4;
-              const brightness = (imageData[pixelIndex] + imageData[pixelIndex + 1] + imageData[pixelIndex + 2]) / 3;
-              qrData[y][x] = brightness < 128 ? 1 : 0; // 1 for dark, 0 for light
-            }
+          const texture = new THREE.CanvasTexture(qrCanvas);
+          for (let i = 0; i < 6; i++) {
+            materials[i] = new THREE.MeshBasicMaterial({ map: texture });
           }
-
-          // Draw clock handles on top of the QR code
-          drawClockHandles(ctx, qrData);
         }
       );
     }
 
+    const cube = new THREE.Mesh(geometry, materials);
+    scene.add(cube);
+
+    camera.position.z = 3; // Distance from the cube
+
+    const animate = function () {
+      requestAnimationFrame(animate);
+
+      cube.rotation.x += 0.003; // Rotation speed
+      cube.rotation.y += 0.002; // Rotation speed
+
+      renderer.render(scene, camera);
+    };
+
     // Update QR code every second
     setInterval(updateQRCode, 1000);
     updateQRCode(); // Initial call
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Add lighting
+    const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
   </script>
 </body>
 </html>
