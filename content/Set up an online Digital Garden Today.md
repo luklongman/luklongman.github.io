@@ -2,7 +2,7 @@
 publish: "true"
 ---
 
-## Final Objectives:
+## Objectives:
 1. Set up a local static site using Quartz 5 where the Obsidian vault lives inside `/content`
 2. Host the Static Site on Github Pages.
 3. Personalize the garden via settings and customizations;
