@@ -115,7 +115,7 @@ To publish directly from your phone while away from your computer, you need a wa
 
 ### What is GitSync.md?
 
-[GitSync.md (App Store link)](https://apps.apple.com/us/app/gitsync-md/id6758960270) is a dedicated iOS-native Git client (HKD 88) that acts as a secure middleman between your device's filesystem and GitHub.
+[GitSync.md (App Store link)](https://apps.apple.com/us/app/gitsync-md/id6758960270) is a dedicated iOS-native Git client (One time purchase HKD 88) that acts as a secure middleman between your device's filesystem and GitHub.
 
 ### Why is a middleman necessary on iOS?
 
