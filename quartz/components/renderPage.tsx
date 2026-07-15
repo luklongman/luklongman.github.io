@@ -72,7 +72,8 @@ export function pageResources(
   })
 
   const contentIndexPath = joinSegments(baseDir, "static/contentIndex.json")
-  const contentIndexScript = `const fetchData = fetch("${contentIndexPath}").then(data => data.json())`
+  const contentIndexVersion = ctx?.buildId ?? "dev"
+  const contentIndexScript = `const fetchData = fetch("${contentIndexPath}?v=${contentIndexVersion}", { cache: "no-store" }).then(data => data.json())`
 
   const resources: StaticResources = {
     css: [
