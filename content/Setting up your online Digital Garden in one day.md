@@ -1,8 +1,12 @@
+---
+publish: "true"
+---
 
 ## Final Objectives:
 1. Set up a local static site using Quartz 5 where the Obsidian vault lives inside `/content`
 2. Host the Static Site on Github Pages.
 3. Personalize the garden via settings and customizations;
+	1. quartz-config.yaml explicit-publish: true
 4. (Optional) Synchronize the vault across iPhone and Desktop. 
 
 As a result, your writings can be published to the online digital garden, all within Obsidian.
