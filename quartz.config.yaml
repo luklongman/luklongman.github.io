@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
+  pageTitle: Luk Long Man
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -16,29 +16,29 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
+      header: Instrument Serif
+      body: DM Sans
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#f4f7f4"
+        lightgray: "#d9dfd9"
+        gray: "#97a39d"
+        darkgray: "#42514a"
+        dark: "#17231d"
+        secondary: "#315d63"
+        tertiary: "#ba6a3b"
+        highlight: rgba(72, 102, 94, 0.15)
         textHighlight: "#fff23688"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#17211d"
+        lightgray: "#2b3830"
+        gray: "#758279"
+        darkgray: "#d4ddd4"
+        dark: "#f2f6f0"
+        secondary: "#8bc1bd"
+        tertiary: "#e5a16e"
+        highlight: rgba(139, 193, 189, 0.16)
         textHighlight: "#b3aa0288"
 plugins:
   - source: github:quartz-community/created-modified-date
@@ -222,13 +222,19 @@ plugins:
       position: afterBody
       priority: 10
   - source: github:quartz-community/footer
+    enabled: false
+  - source: github:quartz-community/recent-notes
     enabled: true
     options:
-      links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
-  - source: github:quartz-community/recent-notes
-    enabled: false
+      title: Recent notes
+      limit: 5
+      showTags: false
+      hideTagPages: true
+      hideFolderPages: true
+    layout:
+      position: afterBody
+      priority: 20
+      condition: is-index
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
@@ -262,7 +268,7 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-    enabled: true
+    enabled: false
     options:
       theme: default
   - source: github:quartz-community/obsidian-plugin-excalidraw

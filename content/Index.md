@@ -1,5 +1,6 @@
 ---
 publish: "true"
+unlisted: true
 ---
 %%Do not post raw info. Yes offer Link to the raw info. But turn it into your experience, unless there's a lack of organized knowledge in that area. %%
 
