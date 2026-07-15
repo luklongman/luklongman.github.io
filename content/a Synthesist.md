@@ -3,6 +3,7 @@ publish: "true"
 unlisted: true
 aliases:
   - index
+title: Luk Long Man
 ---
 # of Music, Tech & Culture
 %%

@@ -2,7 +2,6 @@
 publish: "true"
 ---
 
-
   #productivity 
 
 
@@ -68,7 +67,7 @@ How to Identify duplicate/ similar files?
 
 **dupeguru.app**
 
-Alternatives: zsh: find/ fdupes/ rdfind/ 
+Alternatives: `zsh`, `find`, `fdupes`, `rdfind`
 
   
 
