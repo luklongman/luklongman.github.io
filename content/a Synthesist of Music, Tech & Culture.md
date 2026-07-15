@@ -3,9 +3,13 @@ publish: "true"
 unlisted: true
 aliases:
   - index
-title: Luk Long Man
 ---
-# of Music, Tech & Culture
+In the 19th century, a Synthesist was a botanist who classified disparate plant species into unified families. In the 20th century, the emergence of electronic music demanded a new definition: a musician who plays the synthesizer, distinct from a traditional keyboardist.
+
+Today as an erhuist, field recordist, immersive audio technologist, programmer, and researcher, I never finish the sentence without adding “who looks for everything in between”. This must have confused some friends of mine. “I’m a **Synthesist**.” See? Problem solved!
+
+Whichever wind carried you to this corner of the web, welcome. I invite you to explore this space where I weave connections between music, technology, and culture.
+
 %%
 How does index page work? Do I have to pick a title that serve as homepage title, website title at the same time?
 %%
