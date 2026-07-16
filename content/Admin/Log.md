@@ -1,11 +1,20 @@
 ---
+title:
+description: The space is growing
+permalink:
+aliases:
 publish: "true"
+tags:
+date: 2026-07-01
+status:
 ---
-Jul 16, 2026 (Thu)
+
+
+## Jul 16, 2026 (Thu)
 - About quartz 5 for hosting Obsidian vault. Does it recommend a monorepo approach to linking the markdown files? 
 - While I want easy access to publish, I also want my repo to be private enough
 - What would be the best way to link images. Having them all uploaded to my repo?
-- How to enable html embed? I want to start by trying embeding a soundcloud audio [[Embedding Soundcloud]]
+- How to enable html embed? I want to start by trying embeding a soundcloud audio [[Embed Soundcloud]]
 	- Successful
 - Is Obsidian markdown format different from the markdownlint by David Anson? When I edit the markdown files in Vs code, it tried to correct me and makes my screen very messy
 - Bothered by Markdown Lint while editing in VS Code:
@@ -19,39 +28,19 @@ Jul 16, 2026 (Thu)
 			**/*.md
 			``` 
 		3. Save and Restart VS code. Done!
-- Hosting images on Cloudflare R2
-	- Crucial **zero egress (bandwidth) fees**: You're not charged for going viral.
-	- R2 Storage 10 GB/month
-	- Basically free but require payment method such as Apple Pay, Paypal or credit card)
-	1. Register via https://www.cloudflare.com/products/r2/
-	2. Search for *R2 Object Storage*
-	3. Add R2 subscription to my account
-	4. Process Payment method ($0)
-	5. Proceed to R2
-	6. Create bucket
-		1. give it a name (eg. obsidian)
-		2. Location: Automatic
-		3. Default Storage Class: Standard
-	7. Go the bucket's setting tab
-	8. Find CORS policy (Cross-Origin Resource Sharing)
-	9. Replace with this block
-		```json
-		[
-	  {
-	    "AllowedOrigins": ["app://*"],
-	    "AllowedMethods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
-	    "AllowedHeaders": ["*"],
-	    "ExposeHeaders": ["ETag", "Content-Length", "Content-Type"],
-	    "MaxAgeSeconds": 3600
-	  }
-	]
-		```
-		1. Go back to the main **R2** dashboard page and click **Manage R2 API Tokens** in the sidebar. 
-		2. Create Account API Tokens
-		3. Save your Access Key ID, Secret Access Key, and the S3 Endpoint URL (looks like https://<account_id>.r2.cloudflarestorage.com).
-	10. 
-- Is Cloudflare trustworthy?
-Jul 15, 2026 (Wed)
+- [[Host images on Cloudflare R2]]
+	- review tutorial.
+- 15:21 testing quartz plguins
+	- github:quartz-community/stacked-pages Does not work as intended. very far away from [Andy Matuschak](https://andymatuschak.org/)
+- 19:43 Favicon
+	- This plugin emits a `favicon.ico` into the `public` folder. It creates the favicon from `icon.png` located in the `quartz/static` folder. The plugin resizes `icon.png` to 48x48px to make it as small as possible.
+- Tried Canvas and perhaps advanced Canvas. Not for me. Flowchart is sometimes helpful. May be i should just sketch it and upload images.
+- Learnt a little bit more about Obisidian Publish and [Digital Garden the community plugin](https://docs.forestry.md/). Latter seems far easier if one does not need this many customizations on theory.
+- Obsidian's Callouts [[Callout quick reference]]. Try it out and see if i find it useful.
+- Where do I find external plugins written for Quartz 5?
+	- https://github.com/quartz-community
+	- But so far all I found have been listed on the official documentation.
+## Jul 15, 2026 (Wed)
 - The Garden goes [online](https://luklongman.github.io/) 
 
 Roadmap:

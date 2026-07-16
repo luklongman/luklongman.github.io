@@ -69,7 +69,7 @@ plugins:
       parseTags: true
       parseArrows: true
       parseBlockReferences: true
-      enableInHtmlEmbed: false
+      enableInHtmlEmbed: true
       enableYouTubeEmbed: true
       enableVideoEmbed: true
       enableCheckbox: true
@@ -131,6 +131,11 @@ plugins:
       position: afterBody
       priority: 50
       display: all
+    options:
+      maxTabs: 4
+      mobileBreakpoint: 800
+      showSpines: true
+      animateTransitions: true
   - source: github:quartz-community/alias-redirects
     enabled: true
   - source: github:quartz-community/content-index
@@ -141,7 +146,13 @@ plugins:
   - source: github:quartz-community/favicon
     enabled: true
   - source: github:quartz-community/og-image
-    enabled: false
+    enabled: true
+    options:
+      colorScheme: lightMode
+      width: 1200
+      height: 630
+      excludeRoot: false
+      defaultTitle: untitled
   - source: github:quartz-community/cname
     enabled: true
   - source: github:quartz-community/canvas-page
@@ -186,7 +197,7 @@ plugins:
       position: beforeBody
       priority: 20
   - source: github:quartz-community/tag-list
-    enabled: false
+    enabled: true
     layout:
       position: beforeBody
       priority: 30
@@ -227,8 +238,8 @@ plugins:
     enabled: true
     options:
       title: Recent notes
-      limit: 5
-      showTags: false
+      limit: 10
+      showTags: true
       hideTagPages: true
       hideFolderPages: true
     layout:

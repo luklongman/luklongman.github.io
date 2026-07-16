@@ -1,35 +1,38 @@
+---
+title: Build a Digital Garden for free with Obsidian, Quartz, and Github Pages
+description: This is a description. This is going to be about something
+permalink: build-garden
+aliases:
+publish: "true"
+tags:
+  - Git
+  - Obisidian
+  - Quartz
+draft: "false"
+date: 2026-07-16
+status:
+---
 ## Overview
 
-By the end, you will have a self-updating online digital garden powered by Obsidian and Git. When you edit notes in Obsidian and save them, they will automatically build and publish to the web.
+To host a digital garden, [Obsidian Publish](https://obsidian.md/publish) is a solid and convenient option at USD 8/month, but if you want full control over your setup and style while keeping costs at zero, this guide is for you. 
+
+By the end, you will have a self-updating digital garden powered by Obsidian, Quartz and Github Pages.
 
 #Quartz #Github/Pages #GitSyncMD
 
 ## Objectives
 
-1. Build a local Quartz 5 static site with your Obsidian vault symlinked (comment: does github handle symlink well tho?) inside `/content`.
+1. Clone the Quartz repo with your Obsidian vault inside `/content`.
 2. Host your static site on GitHub Pages for free.
 3. Personalize your garden's look, feel, and navigation.
 4. Establish robust cross-device synchronization between desktop and iOS using GitSync.md.
     
 ## Prerequisites & Requirements
 
-- **Setup Time:** 6 to 8 hours (including debugging, layout design, and initial sync setup).
-    
+- **Setup Time:** 6 hours
 - **Skill Level:** Basic understanding of Git and GitHub (repositories, commits, pushes).
+- **Software Needed:** Obsidian and Visual Studio Code (optional).
     
-- **Software Needed:** Obsidian, Visual Studio Code (VS Code), and Node.js.
-    
-
-### The Financial Math: Free Tier vs. Paid Alternatives
-
-While the setup requires some sweat equity up front, the long-term running cost is zero.
-
-| **Route**                   | **Setup Friction** | Cost          | **Personalization Limits**            |
-| --------------------------- | ------------------ | ------------- | ------------------------------------- |
-| **Obsidian Sync**           | Minimal            | USD 4 / month | N/A (Sync only)                       |
-| **Obsidian Publish**        | None               | USD 8 / month | High (Requires custom CSS/JS uploads) |
-| **Quartz 5 + GitHub Pages** | Moderate           | Free          | None (100% full code access)          |
-
 ## Understanding Quartz 5
 
 Quartz is a Static Site Generator (SSG). It compiles your Obsidian Markdown files directly into static HTML, CSS, and client-side JavaScript.
@@ -181,3 +184,5 @@ Follow this step-by-step pipeline to connect Obsidian Mobile to your GitHub repo
 - **The libgit2 Advantage:** I explained the structural difference between `isomorphic-git` (which runs slowly inside Obsidian's JavaScript sandbox) and `libgit2` (which runs compiled C-logic natively via GitSync.md). This gives you a deeper architectural understanding of why the HKD 88 App Store investment is worth the stability.
     
 - **Security Best Practices:** I highlighted the risks associated with Personal Access Tokens (PATs) and emphasized keeping them out of public repositories. This ensures your code remains clean, private, and secure.
+
+[[Upgrade the garden]]
