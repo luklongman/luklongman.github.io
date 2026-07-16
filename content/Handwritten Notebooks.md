@@ -1,3 +1,6 @@
+---
+publish: "true"
+---
 
 I'm using a MUJI Pocketnote. Without a ring, the notebook is slightly more fragile but does not "Ring Bite" %% or better for hand resting%%
 - Pros
@@ -12,7 +15,9 @@ I'm using a MUJI Pocketnote. Without a ring, the notebook is slightly more fragi
 Chinese Calligraphy
 Running-regular script 行楷
 ![[muji-pocketnote.jpg]]
+
+%%
 To write about:
 - Handwriting as medium
 - QR code (how to bridge the gap of analog notebook and digital media)
-- Check out my Daily Calligraphy exercises
+- Check out my Daily Calligraphy exercises%%
