@@ -148,11 +148,11 @@ plugins:
   - source: github:quartz-community/og-image
     enabled: true
     options:
-      colorScheme: lightMode # "lightMode" or "darkMode"
+      colorScheme: lightMode
       width: 1200
       height: 630
       excludeRoot: false
-      defaultTitle: "untitled"
+      defaultTitle: untitled
   - source: github:quartz-community/cname
     enabled: true
   - source: github:quartz-community/canvas-page

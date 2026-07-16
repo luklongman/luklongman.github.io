@@ -1,0 +1,77 @@
+{
+	"nodes":[
+		{
+			"id":"4206f32b7fcdfa68",
+			"type":"text",
+			"text":"Create with Obsidian",
+			"styleAttributes":{},
+			"x":-340,
+			"y":-380,
+			"width":200,
+			"height":120
+		},
+		{
+			"id":"4e33a68a831ddac6",
+			"type":"text",
+			"text":"Push to remote Repository",
+			"styleAttributes":{},
+			"x":-340,
+			"y":-220,
+			"width":200,
+			"height":80
+		},
+		{
+			"id":"4c9d64d24a09882d",
+			"type":"text",
+			"text":"Build Static Site",
+			"styleAttributes":{},
+			"x":-340,
+			"y":-140,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"98d936390b5057e6",
+			"type":"text",
+			"text":"Deploy & Host",
+			"styleAttributes":{},
+			"x":-340,
+			"y":-60,
+			"width":260,
+			"height":80
+		}
+	],
+	"edges":[
+		{
+			"id":"4e729a35cb2ae507",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"4206f32b7fcdfa68",
+			"fromSide":"bottom",
+			"toNode":"4e33a68a831ddac6",
+			"toSide":"top"
+		},
+		{
+			"id":"441cf10968ddf7f5",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"4e33a68a831ddac6",
+			"fromSide":"bottom",
+			"toNode":"4c9d64d24a09882d",
+			"toSide":"top"
+		},
+		{
+			"id":"48989ea3494b92ec",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"4c9d64d24a09882d",
+			"fromSide":"bottom",
+			"toNode":"98d936390b5057e6",
+			"toSide":"top"
+		}
+	],
+	"metadata":{
+		"version":"1.0-1.0",
+		"frontmatter":{}
+	}
+}

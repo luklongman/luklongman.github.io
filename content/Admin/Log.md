@@ -1,6 +1,15 @@
 ---
+title:
+description: The space is growing
+permalink:
+aliases:
 publish: "true"
+tags:
+date: 2026-07-01
+status:
 ---
+
+
 ## Jul 16, 2026 (Thu)
 - About quartz 5 for hosting Obsidian vault. Does it recommend a monorepo approach to linking the markdown files? 
 - While I want easy access to publish, I also want my repo to be private enough
@@ -23,7 +32,14 @@ publish: "true"
 	- review tutorial.
 - 15:21 testing quartz plguins
 	- github:quartz-community/stacked-pages Does not work as intended. very far away from [Andy Matuschak](https://andymatuschak.org/)
-	
+- 19:43 Favicon
+	- This plugin emits a `favicon.ico` into the `public` folder. It creates the favicon from `icon.png` located in the `quartz/static` folder. The plugin resizes `icon.png` to 48x48px to make it as small as possible.
+- Tried Canvas and perhaps advanced Canvas. Not for me. Flowchart is sometimes helpful. May be i should just sketch it and upload images.
+- Learnt a little bit more about Obisidian Publish and [Digital Garden the community plugin](https://docs.forestry.md/). Latter seems far easier if one does not need this many customizations on theory.
+- Obsidian's Callouts [[Callout quick reference]]. Try it out and see if i find it useful.
+- Where do I find external plugins written for Quartz 5?
+	- https://github.com/quartz-community
+	- But so far all I found have been listed on the official documentation.
 ## Jul 15, 2026 (Wed)
 - The Garden goes [online](https://luklongman.github.io/) 
 
