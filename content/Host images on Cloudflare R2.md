@@ -26,7 +26,7 @@ publish: "true"
 	 "ExposeHeaders": ["ETag", "Content-Length", "Content-Type"],
 	 "MaxAgeSeconds": 3600
   }
-]
+	]
 	```
 	1. Go back to the main **R2** dashboard page and click **Manage R2 API Tokens** in the sidebar. 
 	2. Create Account API Tokens

@@ -1,5 +1,12 @@
 ---
+title: Build a Digital Garden for free with Obsidian, Quartz, and Github Pages
+description: This is a description. This is going to be about something
+permalink: build-garden
+aliases:
 publish: "true"
+tags:
+draft: "false"
+date: 2026-07-16
 ---
 
 ## Objectives:
@@ -22,8 +29,8 @@ Alternatives:
 1. Subscribe [Obsidian Sync](https://obsidian.md/sync) for USD4 per month.
 2. Subscribe [Obsidian Publish](https://obsidian.md/publish) for USD8 per month.
 
-### What is Quartz 5?
-[Quartz 5](https://quartz.jzhao.xyz/) is a fast, batteries-included static-site generator that transforms Markdown content into fully functional websites. Thousands of students, developers, and teachers are [already using Quartz](https://quartz.jzhao.xyz/showcase) to publish personal notes, websites, and [digital gardens](https://jzhao.xyz/posts/networked-thought) to the web.
+### What is Quartz?
+[Quartz](https://quartz.jzhao.xyz/) is a fast, batteries-included static-site generator that transforms Markdown content into fully functional websites. Thousands of students, developers, and teachers are [already using Quartz](https://quartz.jzhao.xyz/showcase) to publish personal notes, websites, and [digital gardens](https://jzhao.xyz/posts/networked-thought) to the web.
 s
 To setup up a local site, follow the instruction
 
@@ -60,3 +67,6 @@ https://apps.apple.com/us/app/gitsync-md/id6758960270
 
 #### Youtube tutorial
 https://www.youtube.com/watch?v=AdCvAzmgGQE
+
+
+[[Upgrade the garden]]

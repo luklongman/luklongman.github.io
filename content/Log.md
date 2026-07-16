@@ -1,11 +1,11 @@
 ---
 publish: "true"
 ---
-Jul 16, 2026 (Thu)
+## Jul 16, 2026 (Thu)
 - About quartz 5 for hosting Obsidian vault. Does it recommend a monorepo approach to linking the markdown files? 
 - While I want easy access to publish, I also want my repo to be private enough
 - What would be the best way to link images. Having them all uploaded to my repo?
-- How to enable html embed? I want to start by trying embeding a soundcloud audio [[Embedding Soundcloud]]
+- How to enable html embed? I want to start by trying embeding a soundcloud audio [[Embed Soundcloud]]
 	- Successful
 - Is Obsidian markdown format different from the markdownlint by David Anson? When I edit the markdown files in Vs code, it tried to correct me and makes my screen very messy
 - Bothered by Markdown Lint while editing in VS Code:
@@ -21,7 +21,10 @@ Jul 16, 2026 (Thu)
 		3. Save and Restart VS code. Done!
 - [[Host images on Cloudflare R2]]
 	- review tutorial.
-Jul 15, 2026 (Wed)
+- 15:21 testing quartz plguins
+	- github:quartz-community/stacked-pages Does not work as intended. very far away from [Andy Matuschak](https://andymatuschak.org/)
+	
+## Jul 15, 2026 (Wed)
 - The Garden goes [online](https://luklongman.github.io/) 
 
 Roadmap:
