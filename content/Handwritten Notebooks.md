@@ -1,20 +1,12 @@
 ---
 publish: "true"
 ---
+![muji-pocketnote.png|626](https://pub-b5fd5637194140da82aab38eadc4a60e.r2.dev/attachments/png/61/615e7908b33cd3b05298b4e44ecea41a06a57d993bf3319c382bea8e5efe7fe7.png)
+I use MUJI Pocketnote: 144 pages of blank A6 sheets. I always prefer thread-bound over ring-bound. It's not the most durable, so I use a protective cover for the current one (A6 書衣), and slightly press-stretch from the middle when starting a new notebook.
 
-I'm using a MUJI Pocketnote. Without a ring, the notebook is slightly more fragile but does not "Ring Bite" %% or better for hand resting%%
-- Pros
-	- HKD12
-	- Easy to get
-	- 144 pages. One per two months
-- Cons
-	- Not the most durable
-		- so I use a protective cover for the current notebook. (A6 書衣)
-		- and slightly press-stretch a new notebook from the middle
-
-Chinese Calligraphy
+%% Chinese Calligraphy
 Running-regular script 行楷
-![[muji-pocketnote.jpg]]
+ %%
 
 %%
 To write about:
