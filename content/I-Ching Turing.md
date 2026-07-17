@@ -1,3 +1,7 @@
+---
+created: 2026-07-14T20:35
+updated: 2026-07-14T20:35
+---
 [Turing Machine by Music Thing Modular](https://www.musicthing.co.uk/Turing-Machine/) is a popular Eurorack synth concept and sequencer module. The design is well documented in the official website.
 
 The essence of the design lies on the concept of **bitwise rotation** - the binary status 

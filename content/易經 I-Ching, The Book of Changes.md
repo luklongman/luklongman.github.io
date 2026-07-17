@@ -1,3 +1,7 @@
+---
+created: 2026-07-14T20:40
+updated: 2026-07-14T20:40
+---
 
 %%Briefly on I-Ching 周易
 Project 

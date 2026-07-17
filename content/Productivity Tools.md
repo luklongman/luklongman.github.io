@@ -1,5 +1,7 @@
 ---
 publish: "true"
+created: 2026-07-14T18:04
+updated: 2026-07-15T21:07
 ---
 
   #productivity 

@@ -7,6 +7,8 @@ publish: "false"
 tags:
 date: 2026-07-16
 status:
+created: 2026-07-16T20:11
+updated: 2026-07-16T20:44
 ---
 How do we make sense of all the tools and format?
 What does it mean

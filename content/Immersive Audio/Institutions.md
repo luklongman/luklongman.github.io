@@ -1,3 +1,7 @@
+---
+created: 2026-07-16T20:44
+updated: 2026-07-16T21:14
+---
 Can you name some of the leading institutions and researchers and artists for immersive audio and spatial sound design?
 
 Yes. A strong short list is:

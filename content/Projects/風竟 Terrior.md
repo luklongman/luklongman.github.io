@@ -15,5 +15,7 @@ tags:
   - iching
   - DNA
   - music/generative
+created: 2026-07-14T20:07
+updated: 2026-07-14T20:07
 ---
 [[@Julia Chang]]

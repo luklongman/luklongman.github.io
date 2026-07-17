@@ -1,12 +1,14 @@
 ---
 title:
 description: The space is growing
-permalink:
+permalink: log
 aliases:
 publish: "true"
 tags:
 date: 2026-07-01
 status:
+created: 2026-07-16T11:47
+updated: 2026-07-17T15:59
 ---
 
 

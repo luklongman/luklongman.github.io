@@ -4,6 +4,8 @@ unlisted: true
 aliases:
   - about
 title: a Synthesist of Music, Tech & Culture
+created: 2026-07-16T11:47
+updated: 2026-07-16T11:48
 ---
 In the 19th century, a Synthesist was a botanist who classified disparate plant species into unified families. In the 20th century, the emergence of electronic music demanded a new definition: a musician who plays the synthesizer, distinct from a traditional keyboardist.
 

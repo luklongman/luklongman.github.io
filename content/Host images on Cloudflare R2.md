@@ -1,5 +1,7 @@
 ---
 publish: "true"
+created: 2026-07-16T14:50
+updated: 2026-07-16T15:09
 ---
 - Crucial **zero egress (bandwidth) fees**: You're not charged large bandwidth.
 - community plugin: S3 image sync by JongChoiYip
