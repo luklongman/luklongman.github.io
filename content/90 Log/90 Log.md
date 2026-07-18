@@ -7,7 +7,7 @@ publish: "true"
 tags:
 date: 2026-07-01
 status:
-updated: 2026-07-17T16:22
+updated: 2026-07-17T16:26
 created: 2026-07-16T11:47
 ---
 ```contributionGraph
@@ -38,13 +38,11 @@ toDate: 2026-12-31
 ```
 
 
-## [[2026-07-17]]
-## [[2026-07-16]]
-## [[2026-07-15]]
-- The Garden goes [online](https://luklongman.github.io/) 
+### [[2026-07-17]]
 
-Roadmap:
-- [ ] Basic configurations: Title, Homepage, display and hide
+### [[2026-07-16]]
+### [[2026-07-15]]
+- The Garden goes [online](https://luklongman.github.io/) 
 
 Remember to manually sync before edit: `git pull`
 Temporary save current uncommitted changes: `git stash`

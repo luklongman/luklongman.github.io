@@ -1,9 +1,9 @@
 ---
 publish: "true"
 created: 2026-07-16T14:50
-updated: 2026-07-16T15:09
+updated: 2026-07-18T16:06
 ---
-- Crucial **zero egress (bandwidth) fees**: You're not charged large bandwidth.
+****- Crucial **zero egress (bandwidth) fees**: You're not charged large bandwidth.
 - community plugin: S3 image sync by JongChoiYip
 - R2 Storage 10 GB/month
 - Basically free but require payment method such as Apple Pay, Paypal or credit card)
