@@ -1,3 +1,7 @@
+---
+created: 2026-07-14T22:34
+updated: 2026-07-14T22:34
+---
 # I Ching (Book of Changes) Unicode Symbols
 
 A package that provides access to I Ching symbols including hexagrams (䷀), trigrams(☷), bigrams(⚍), and monograms (⚋); Chinese and English names; and links to original text and translation from ctext.org.

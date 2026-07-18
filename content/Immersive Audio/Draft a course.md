@@ -1,3 +1,7 @@
+---
+created: 2026-07-16T21:06
+updated: 2026-07-16T21:06
+---
 
 ### **Part 1: Fundamentals of Space and The IEM Suite**
 

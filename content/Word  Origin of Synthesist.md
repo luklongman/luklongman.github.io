@@ -1,3 +1,7 @@
+---
+created: 2026-07-16T11:47
+updated: 2026-07-16T11:47
+---
 **Synthesist** (noun) is derived from combining the verb _synthesize_ with the suffix _-ist_. It traces back to the ancient Greek _σύνθεσις_ (a putting together or combining) and the classical Latin _synthesis_. The earliest recorded use of the word in English dates to the 1860s, notably appearing in the writings of botanist John G. Baker. [[1](https://www.oed.com/dictionary/synthesist_n), [2](https://en.wiktionary.org/wiki/synthesist), [3](https://grammarphobia.com/blog/2017/08/synthesizer.html), [4](https://www.facebook.com/GreekResidency/videos/greek-residency-synthesis/480223053769472/)]
 
 The term has two distinct definitions and is generally found in specialized or niche literature rather than everyday speech: [[1](https://www.oxfordlearnersdictionaries.com/definition/english/synthesis)]

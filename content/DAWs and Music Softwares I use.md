@@ -1,3 +1,7 @@
+---
+created: 2026-07-14T18:23
+updated: 2026-07-14T18:23
+---
 [[Ableton Live]]
 - Live performance
 - Generative music
