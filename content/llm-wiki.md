@@ -1,3 +1,7 @@
+---
+created: 2026-04-05T00:25
+updated: 2026-07-20T14:03
+---
 # LLM Wiki
 
 A pattern for building personal knowledge bases using LLMs.
