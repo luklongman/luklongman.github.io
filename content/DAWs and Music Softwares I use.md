@@ -1,8 +1,10 @@
 ---
 created: 2026-07-14T18:23
-updated: 2026-07-14T18:23
+updated: 2026-07-20T16:16
 ---
+
 [[Ableton Live]]
+
 - Live performance
 - Generative music
 - Extension [[Max4Live]]
@@ -10,7 +12,8 @@ updated: 2026-07-14T18:23
 Logic Pro X
 - Tracking and editing
 Reaper
-VCV Rack
+[[VCV Rack]]
+- [[VCV Rack for instrumentalists]]
 Oscistudio
 
 COSMOS

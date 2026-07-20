@@ -8,7 +8,7 @@ tags:
 date: 2026-07-16
 status:
 created: 2026-07-16T13:03
-updated: 2026-07-20T14:55
+updated: 2026-07-20T15:14
 ---
 - Agent Skills standards: 
 - [Using it in VS code](https://code.visualstudio.com/docs/agent-customization/agent-skills)
@@ -41,3 +41,14 @@ my-skill/
 3. https://awesome-copilot.github.com/skills/
 
 ![Install obsidian skill to github repo belike.png|235](https://pub-b5fd5637194140da82aab38eadc4a60e.r2.dev/attachments/png/8e/8e055103c2270a64d752a493644121d4dc6fb1137e1cd6056487f4402efb74f5.png)
+
+
+https://youtu.be/rRa9td4oe7k
+How I Use Obsidian + Claude Cowork to Run My Life
+
+AI content sepratetion
+claude.md go to me.md (redirection)
+me.md
+
+Vault map
+Skill map
