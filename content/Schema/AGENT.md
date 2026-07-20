@@ -9,9 +9,9 @@ tags:
 date: 2026-07-16
 status: draft | pending-ai | pending-human | stable
 created: 2026-07-16T13:03
-updated: 2026-07-20T21:17
+updated: 2026-07-20T21:59
 ---
-# Overview
+## Overview
 
 This is the master instruction for the LLM agent to **incrementally builds and maintains a persistent wiki** built with Obsidian,
 
@@ -76,3 +76,45 @@ Use `status` as a single, controlled property instead of another tag pile. A sim
 **Atomic Writes:** Ensure the agent appends its output cleanly (e.g., inside a designated `## AI Review` markdown heading) rather than blinding wiping your original input. Agents do not partially change the human section
 
 Automated Handoff
+
+
+Last edited: 21:39. Jul 20, 2026 (Mon)
+## Non-negotiable rules:
+
+• Keep Raw source notes source-faithful.
+• Do not overwrite Raw source content during compilation.
+• Use plaia tags only.
+• Use tollics and sources frontmatter on compiled Wiki notes.
+• Treat source_count as derived.
+• Keep compiled notes short, single-purpose, and source-traceable.
+• Query from Wiki/index.md and Wiki/catalog.jsonl before opening broad context.
+
+Advanced modules in bonus/ are optional and should not be required for the core workflow.
+
+
+## Frontmatter standard
+[[newNote]]
+`TEMPLATES/newNote.md` 
+
+
+## Lint Checklist
+
+LINT
+lint-checklist
+
+Before committing Wiki changes:
+
+• Required frontmatter is present.
+• Tags are plain role tags.
+• topics links resolve.
+• sources links resolve.
+• source_count equals the number of sources.
+• Compiled notes include ## Related.
+• Compiled notes include ## Sources.
+• Indexes and Wiki/catalog-jsonl are rebuilt.
+• Raw source manifest is current.
+
+
+naming_conventions
+
+workflow_examples
