@@ -1,6 +1,6 @@
 ---
 created: 2026-07-16T13:03
-updated: 2026-07-20T17:19
+updated: 2026-07-20T21:01
 title:
 description:
 permalink:
@@ -36,9 +36,9 @@ fromDate: 2026-07-15
 toDate: 2026-12-31
 
 ```
-[[2026-07-20 Habits]]
-[[2026-07-20 Obsidian Base]]
-[[2026-07-20 Agentic AI]]
+[[2026-07-20 C Continue Obsidian]]
+[[2026-07-20 B Habits]]
+[[2026-07-20 A Agentic AI]]
 
 [[2026-07-19]]
 

@@ -11,7 +11,7 @@ tags:
 date: 2026-07-20
 status: seed
 created: 2026-07-20T00:00
-updated: 2026-07-20T16:16
+updated: 2026-07-20T20:27
 ---
 
 > [!abstract] Summary
@@ -51,7 +51,7 @@ This approach fits well with [[Etudes of Erhu. 二胡練習曲]] and [[20 Erhu �
 ## Make connections outside modular
 
 - Sketch ideas in [[DAWs and Music Softwares I use]] and move the best ones into a DAW for editing.
-- If you are working with space and diffusion, connect the practice patch to ideas from [[Immersive Audio]].
+- If you are working with space and diffusion, connect the practice patch to ideas from [[MY/Immersive Audio]].
 - For generative constraints and sequence logic, see [[I-Ching Turing]].
 
 ## Related
@@ -59,6 +59,6 @@ This approach fits well with [[Etudes of Erhu. 二胡練習曲]] and [[20 Erhu �
 - [[VCV Rack]]
 - [[Computer Music]]
 - [[DAWs and Music Softwares I use]]
-- [[Immersive Audio]]
+- [[MY/Immersive Audio]]
 - [[Etudes of Erhu. 二胡練習曲]]
 - [[20 Erhu 二胡]]

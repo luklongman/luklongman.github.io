@@ -1,8 +1,7 @@
 ---
 created: 2026-07-16T18:47
-updated: 2026-07-16T21:01
+updated: 2026-07-20T20:26
 ---
-
 >[!note]+ Note
 
 > [!abstract]+ abstract

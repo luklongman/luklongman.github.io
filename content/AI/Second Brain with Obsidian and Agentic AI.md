@@ -10,8 +10,9 @@ tags:
   - agentic-ai
   - knowledge-management
 created: 2026-07-20
-updated: 2026-07-20T18:01
+updated: 2026-07-20T20:23
 publish: "true"
+type:
 ---
 
 ## Second Brain with Obsidian and Agentic AI
