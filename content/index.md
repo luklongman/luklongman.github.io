@@ -1,9 +1,8 @@
 ---
 publish: "true"
-unlisted: true
 aliases:
   - about
-title: a Synthesist of Music, Tech & Culture
+title: is Synthesising Music, Tech & Culture
 created: 2026-07-16T11:47
 updated: 2026-07-20T21:59
 ---
