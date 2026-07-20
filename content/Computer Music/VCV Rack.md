@@ -1,6 +1,6 @@
 ---
 created: 2026-07-14T19:26
-updated: 2026-07-20T16:47
+updated: 2026-07-20T16:51
 publish: "true"
 tags:
   - music/tech
@@ -12,9 +12,12 @@ tags:
 VCV Rack is __
 
 See examples:
+
+Music Cover
+
+[[Build a generative Chinese orchestra in VCV Rack]]
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rmRZeKCqXYY?si=JmkLHMYbAbhAogCt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YbQzYoRXFdo?si=lcZ5eJtarCmg0RAI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HTShzS5CTZk?si=oddcFzMWu7tleZzf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VU65GlNg4xY?si=D4yPtUWDiO2n6wmX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/K3PU7X8mHsg?si=FbhhWpFwjk8dMSIW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IGa9GUci8eI?si=65ADe7k4GQxE3TsK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -8,5 +8,6 @@ tags:
 date: 2026-07-16
 status:
 created: 2026-07-16T13:03
-updated: 2026-07-20T16:19
+updated: 2026-07-20T17:18
 ---
+17:18 Obsidian's base what is it

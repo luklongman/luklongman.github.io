@@ -1,14 +1,14 @@
 ---
+created: 2026-07-16T13:03
+updated: 2026-07-20T17:19
 title:
-description: The space is growing
-permalink: log
+description:
+permalink:
 aliases:
-publish: "true"
+publish: "false"
 tags:
-date: 2026-07-01
+date: 2026-07-16
 status:
-updated: 2026-07-17T16:26
-created: 2026-07-16T11:47
 ---
 ```contributionGraph
 title:
@@ -36,19 +36,18 @@ fromDate: 2026-07-15
 toDate: 2026-12-31
 
 ```
+[[2026-07-20 Habits]]
+[[2026-07-20 Obsidian Base]]
+[[2026-07-20 Agentic AI]]
 
+[[2026-07-19]]
 
-### [[2026-07-17]]
+[[2026-07-18]]
 
-### [[2026-07-16]]
-### [[2026-07-15]]
-- The Garden goes [online](https://luklongman.github.io/) 
+[[2026-07-17]]
 
-Remember to manually sync before edit: `git pull`
-Temporary save current uncommitted changes: `git stash`
-Merge vs Rebase: `git config pull.rebase false`
+[[2026-07-16]]
 
+[[2026-07-15]]
 
-Questions:
-1. Can Quartz 5 handle tier membership in any form?
 

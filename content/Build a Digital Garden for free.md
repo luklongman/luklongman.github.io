@@ -8,11 +8,10 @@ tags:
   - Git
   - Obisidian
   - Quartz
-draft: "false"
 date: 2026-07-16
 status:
 created: 2026-07-16T11:47
-updated: 2026-07-16T19:41
+updated: 2026-07-20T17:04
 ---
 ## Overview
 
