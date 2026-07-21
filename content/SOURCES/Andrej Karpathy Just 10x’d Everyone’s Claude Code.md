@@ -8,7 +8,7 @@ created: 2026-07-19
 description: "My FREE AI OS Course: https://www.skool.com/ai-automation-society/about?el=karpathy-obsidian&hcategory=youtube-videos&utm_campaign=free-groupFull courses + unlimited support: https://www.skool.com/ai"
 tags:
   - clippings
-updated: 2026-07-19T12:12
+updated: 2026-07-21T09:50
 ---
 ![](https://www.youtube.com/watch?v=sboNwYmH3AY)
 

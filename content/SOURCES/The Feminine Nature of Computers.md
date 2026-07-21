@@ -8,7 +8,7 @@ created: 2026-07-17
 description: "WHERE TO FIND MESubstack: https://finalgirldigital.substack.com/ Instagram: https://www.instagram.com/finalgirldigital/ Letterboxd: https://boxd.it/49rL9  Business Inquiries: FinalGirlDigital@gmai"
 tags:
   - clippings
-updated: 2026-07-17T20:51
+updated: 2026-07-21T09:50
 ---
 ![](https://www.youtube.com/watch?v=upGKj7Fdi9s)
 

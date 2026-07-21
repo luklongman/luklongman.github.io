@@ -9,9 +9,9 @@ tags:
 date: 2026-07-16
 status: draft | pending-ai | pending-human | stable
 created: 2026-07-16T13:03
-updated: 2026-07-20T21:59
+updated: 2026-07-21T09:30
 ---
-## Overview
+# Overview
 
 This is the master instruction for the LLM agent to **incrementally builds and maintains a persistent wiki** built with Obsidian,
 
@@ -118,3 +118,11 @@ Before committing Wiki changes:
 naming_conventions
 
 workflow_examples
+
+
+## Callout
+
+How should it respond to my notes?
+Notes I will be leaving: 
+`>[!question]`
+

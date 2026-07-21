@@ -8,7 +8,7 @@ created: 2026-07-20
 description: "Build your own Thinking Partner With Super Powers - AI OS Setup Guide: http://www.linkingyourthinking.com/ai-os-full-setup-guide?utm_source=youtube&utm_medium=social&utm_campaign=vid30obsidianclaude&u"
 tags:
   - clippings
-updated: 2026-07-20T15:59
+updated: 2026-07-21T09:50
 ---
 ![](https://www.youtube.com/watch?v=rRa9td4oe7k)
 

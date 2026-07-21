@@ -1,12 +1,11 @@
 ---
 created: 2026-07-20T16:50
-updated: 2026-07-20T16:56
+updated: 2026-07-21T09:30
 publish: "true"
 ---
 Overview:
 
-## Pick a sample library 
-{{}}
+## Pick a sample library
 I choose [Orchestral Tools Phoenix Orchestra](https://www.orchestraltools.com/phoenix-orchestra).
 (:LiEuro:399)
 
