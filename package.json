@@ -1,19 +1,14 @@
 {
-  "name": "@jackyzha0/quartz",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "name": "luklongman-garden",
+  "description": "Personal knowledge garden",
   "private": true,
-  "version": "5.0.0",
+  "version": "1.0.0",
   "type": "module",
-  "author": "jackyzha0 <j.zhao2k19@gmail.com>",
+  "author": "Luk Long Man",
   "license": "MIT",
-  "homepage": "https://quartz.jzhao.xyz",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jackyzha0/quartz.git"
-  },
+  "homepage": "https://luklongman.github.io/",
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
-    "docs": "npx quartz build --serve -d docs",
     "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
     "test": "tsx --test",
@@ -26,12 +21,8 @@
     "node": ">=22"
   },
   "keywords": [
-    "site generator",
-    "ssg",
-    "digital-garden",
-    "markdown",
-    "blog",
-    "quartz"
+    "knowledge-garden",
+    "markdown"
   ],
   "bin": {
     "quartz": "./quartz/bootstrap-cli.mjs"
