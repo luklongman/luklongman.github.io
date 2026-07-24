@@ -1,6 +1,7 @@
 # Luk Long Man
 
 Personal knowledge garden, published to GitHub Pages.
+Last edited: 21:49. Jul 24, 20
 
 ## Build
 
